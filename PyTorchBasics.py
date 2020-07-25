@@ -106,10 +106,11 @@ t = torch.linspace(-10, 10, steps=10000)
 #raise NotImplementedError()
 
 print(t)
-
+print(TASK 1)
+#Codigo
 x = t - 1.5 * torch.cos(15 * t)
 y = t - 1.5 * torch.sin(16 * t)
-
+#Codigo
 print(x)
 print(y)
 
