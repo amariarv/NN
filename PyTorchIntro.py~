@@ -83,7 +83,7 @@ trainloader = torch.utils.data.DataLoader(ds_train, batch_size=512,
 testloader = torch.utils.data.DataLoader(ds_test, batch_size=10000,
                                         shuffle=False, num_workers=2)
 
-
+"""
 # In[ ]:
 
 
@@ -96,7 +96,7 @@ print("Train:", ds_train, "\nTest:", ds_test)
 X_batch, y_batch = iter(trainloader).next()
 print("batch size:", len(X_batch), "batch dimensions:", X_batch.shape)
 
-"""
+
 # In[ ]:
 
 
