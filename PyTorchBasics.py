@@ -17,14 +17,14 @@ import matplotlib.pyplot as plt
 import torch
 print(torch.__version__)
 
-"""
+
 # In[3]:
 
 
 # numpy world
 
 x = np.arange(16).reshape(4, 4)
-
+print ("CODE: np.arange(16).reshape(4, 4)")
 print(f"X :\n{             x}")
 print(f"X.shape : {        x.shape}")
 print(f"add 5 :\n{         x + 5}")
@@ -41,7 +41,8 @@ print(f"cumsum of cols :\n{x.cumsum(axis=0)}")
 x = np.arange(16).reshape(4, 4)
 
 x = torch.tensor(x, dtype=torch.float32)  # or torch.arange(0,16).reshape(4,4).to(torch.float32)
-
+print ("CODE: x = np.arange(16).reshape(4, 4)")
+print ("CODE: x = torch.tensor(x, dtype=torch.float32)")
 print(f"X :\n{             x}")
 print(f"X.shape : {        x.shape}")
 print(f"add 5 :\n{         x + 5}")
@@ -49,7 +50,7 @@ print(f"X*X^T :\n{         x @ x.T}")
 print(f"mean over rows :\n{x.mean(axis=-1)}")
 print(f"cumsum of cols :\n{x.cumsum(axis=0)}")
 
-
+"""
 # ## NumPy and Pytorch
 # 
 # As you can notice, pytorch allows you to hack stuff much the same way you did with numpy. The syntax is in some ways compatible with numpy (as in the example above), [to some extent](https://github.com/pytorch/pytorch/issues/38349).
@@ -59,20 +60,19 @@ print(f"cumsum of cols :\n{x.cumsum(axis=0)}")
 # Also type conversions need be done explicitly. So operations that cannot be done on current type will raise an error rather than converting the tensor:
 
 # In[5]:
-
+"""
 
 x = torch.arange(5)
-#x.mean() # instead try: 
-x.to(float).mean()
-
+#x.mean() doesn't work because the type of tensor has to be floats not integers to be able to calculate the mean.
+print(f"x.to(float).mean(): \n{x.to(float).mean()}")
 
 # In[6]:
 
 
 x = torch.tensor([1, 2])
-#x /= 2.0 # instead try: `
+#x /= 2.0 # instead try: ` Modification assignment (/= replaces x by the division x/2) won't work if you need to change the type of the tensor. In this case it was integers, so they have to be divided by other integers
 x /= 2
-x
+print(f"x /= 2: \n{x}")
 
 
 # Converting tensors back to numpy:
@@ -81,8 +81,8 @@ x
 
 
 x = torch.ones(size=(3, 5))
-x.numpy()
-
+x.numpy() #simple as that
+print(f"x.numpy(): \n{x.numpy()}")
 
 # ## Warmup: trigonometric knotwork
 # _inspired by [this post](https://www.quora.com/What-are-the-most-interesting-equation-plots)_
@@ -97,23 +97,30 @@ x.numpy()
 
 
 import matplotlib.pyplot as plt
-get_ipython().magic('matplotlib inline')
+#get_ipython().magic('matplotlib inline')
 
 t = torch.linspace(-10, 10, steps=10000)
 
 # compute x=x(t) and y=y(t) as defined above
 # YOUR CODE HERE
-raise NotImplementedError()
+#raise NotImplementedError()
+
+print(t)
+
+x = t - 1.5 * torch.cos(15 * t)
+y = t - 1.5 * torch.sin(16 * t)
+
+print(x)
+print(y)
 
 plt.plot(x.numpy(), y.numpy());
 
-
 # In[ ]:
-
-
+print (x[42].item(), -9.2157)
 assert np.isclose(x[42].item(), -9.2157)
-assert np.isclose(y[1990].item(), -4.6997)
 
+print (y[1990].item(), -4.6997)
+assert np.isclose(y[1990].item(), -4.6997)
 
 # --------
 
@@ -133,11 +140,10 @@ assert np.isclose(y[1990].item(), -4.6997)
 
 # In[9]:
 
-
 x = torch.tensor(0., requires_grad=True)
 y = torch.sin(x)
-y.backward()
-x.grad
+print(y.backward())
+print(x.grad)
 
 
 # In[10]:
@@ -145,6 +151,7 @@ x.grad
 
 # Remember we defined MSE loss with its gradient last week?
 # With torch we could've skipped the gradient part:
+print("MeanSquareError Loss")
 
 def MSELoss(y, yhat):
     return ((y - yhat)**2).mean()
@@ -177,7 +184,7 @@ print("x.grad =", x.grad)
 y2.backward()
 print("x.grad =", x.grad)
 
-
+"""
 # so typically when using it inside learning loop you want to zero the accumulated gradients between the consequtive `backward()` calls, e.g.:
 
 # In[12]:
